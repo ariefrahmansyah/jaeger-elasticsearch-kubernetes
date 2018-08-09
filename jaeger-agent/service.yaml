@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-agent
+  namespace: jaeger
+  labels:
+    app: jaeger
+    jaeger-infra: agent-service
+spec:
+  ports:
+  - name: agent-udp-5775
+    port: 5775
+    protocol: UDP
+    targetPort: 5775
+  - name: agent-udp-6831
+    port: 6831
+    protocol: UDP
+    targetPort: 6831
+  - name: agent-udp-6832
+    port: 6832
+    protocol: UDP
+    targetPort: 6832
+  - name: agent-tcp-5778
+    port: 5778
+    protocol: TCP
+    targetPort: 5778
+  selector:
+    jaeger-infra: agent-pod
+  type: ClusterIP

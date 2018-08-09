@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaeger-configuration
+  namespace: jaeger
+  labels:
+    app: jaeger
+    jaeger-infra: configuration
+data:
+  span-storage-type: elasticsearch
+  collector: |
+    es:
+      server-urls: http://elasticsearch.infrastructure.svc.cluster.local:9200
+      username: elastic
+      password: changeme
+    collector:
+      zipkin:
+        http-port: 9411
+  query: |
+    es:
+      server-urls: http://elasticsearch.infrastructure.svc.cluster.local:9200
+      username: elastic
+      password: changeme
+  agent: |
+    collector:
+      host-port: "jaeger-collector.infrastructure.svc.cluster.local:14267"
